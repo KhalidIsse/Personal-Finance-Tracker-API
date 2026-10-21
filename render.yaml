@@ -1,0 +1,38 @@
+services:
+  # ---- API ----
+  - type: web
+    name: finance-tracker-api
+    runtime: node
+    rootDir: server
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRES_IN
+        value: 7d
+      # Set these in the Render dashboard (never commit them):
+      - { key: MONGODB_USERNAME, sync: false }
+      - { key: MONGODB_PASSWORD, sync: false }
+      - { key: MONGODB_URI_PRO, sync: false }
+      - { key: CLIENT_URL, sync: false }          # e.g. https://finance-tracker-web.onrender.com
+      # Do not set MONGO_URI_DEV on Render: NODE_ENV=production selects Atlas.
+      - { key: CLOUDINARY_CLOUD_NAME, sync: false }
+      - { key: CLOUDINARY_API_KEY, sync: false }
+      - { key: CLOUDINARY_API_SECRET, sync: false }
+
+  # ---- React frontend (static site) ----
+  - type: web
+    name: finance-tracker-web
+    runtime: static
+    rootDir: client
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    routes:
+      - { type: rewrite, source: /*, destination: /index.html }
+    envVars:
+      - { key: VITE_API_URL, sync: false }        # e.g. https://finance-tracker-api.onrender.com
