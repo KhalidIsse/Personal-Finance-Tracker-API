@@ -4,12 +4,12 @@
   "type": "module",
   "main": "src/server.js",
 "scripts": {
-  "start": "concurrently \"node src/server.js\" \"npm run preview --prefix ../client\"",
+  "start": "node src/server.js",
   "dev:server": "node --watch src/server.js",
   "dev:client": "npm run dev --prefix ../client",
-  "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\""
-}
-,
+  "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
+  "seed": "node src/seed.js"
+},
   "engines": {
     "node": ">=18"
   },
