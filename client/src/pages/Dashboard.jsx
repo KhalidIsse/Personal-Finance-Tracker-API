@@ -201,7 +201,7 @@ export default function Dashboard() {
                   <TableHead>Title</TableHead>
                   <TableHead>Category</TableHead>
                   <TableHead className="text-right">Amount</TableHead>
-                  <TableHead><span className="sr-only">Actions</span></TableHead>
+                  <TableHead className="text-right"><span className="sr-text-right w-[80px]">Actions</span></TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
